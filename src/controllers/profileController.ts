@@ -2,12 +2,13 @@ import { RequestHandler, Request, Response } from "express";
 import { validationResult } from "express-validator";
 import Profile from "../models/Profile";
 import User from "../models/User";
-interface Ireq extends Request {
-  user: {
-    id: string;
-  };
-}
-const getProfile = async (req: Ireq, res: Response, next: any) => {
+import { Ireq, IProfile } from "../typesAndInterfaces/types";
+
+const getProfile: RequestHandler = async (
+  req: Ireq | any,
+  res: Response,
+  next: any
+) => {
   try {
     const profile = await Profile.findOne({
       user: req.user.id,
@@ -23,7 +24,11 @@ const getProfile = async (req: Ireq, res: Response, next: any) => {
   }
 };
 // create profile
-const createProfile = async (req: Ireq, res: Response, next: any) => {
+const createProfile: RequestHandler = async (
+  req: Ireq | any,
+  res: Response,
+  next: any
+) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -148,11 +153,36 @@ const getProfileByUserId: RequestHandler = async (req, res, next) => {
   }
 };
 // delete user & profile
-const deleteProfile = async (req: Ireq, res: Response, next: any) => {
+const deleteProfile: RequestHandler = async (
+  req: Ireq | any,
+  res: Response,
+  next: any
+) => {
   try {
     await Profile.findOneAndDelete({ user: req.user.id });
     await User.findByIdAndDelete(req.user.id);
     res.json({ message: "user is deleted" });
+  } catch (error) {
+    next(error);
+  }
+};
+// add experience
+const addExperience: RequestHandler = async (
+  req: Ireq | any,
+  res: Response,
+  next: any
+) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(401).json({ error: errors.array() });
+  }
+  const { title, company, location, current, from, to, description } = req.body;
+  try {
+    const newExp = { title, company, location, current, from, to, description };
+    const profile = (await Profile.findOne({ user: req.user.id })) as IProfile;
+    profile.experience.unshift(newExp);
+    await profile?.save();
+    res.json(profile);
   } catch (error) {
     next(error);
   }
@@ -163,4 +193,5 @@ export {
   getAllProfiles,
   getProfileByUserId,
   deleteProfile,
+  addExperience,
 };
