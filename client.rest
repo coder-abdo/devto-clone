@@ -1,0 +1,56 @@
+# sign up
+POST http://localhost:5000/api/users/signup
+Content-Type: application/json
+
+{
+    "name": "john",
+    "email": "john_doe@mail.com",
+    "password": "password"
+}
+###
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+
+{
+    "email": "john_doe@mail.com",
+    "password": "password"
+}
+### auth
+###
+GET http://localhost:5000/api/auth
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMWRmZTQyOTU0YWUxNzYwNGMxZDk2In0sImlhdCI6MTU5MTg2Mjk0NCwiZXhwIjoxNTkyNDY3NzQ0fQ.U84Jno4e5FGGvS14GiFo_R-4zg1NyYWGK0PMvZCpGSA
+
+### profile
+POST http://localhost:5000/api/profile/create
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMWRmZTQyOTU0YWUxNzYwNGMxZDk2In0sImlhdCI6MTU5MTg2Mjk0NCwiZXhwIjoxNTkyNDY3NzQ0fQ.U84Jno4e5FGGvS14GiFo_R-4zg1NyYWGK0PMvZCpGSA
+
+{
+    "company": "john_doe.inc",
+    "website": "www.john_doe_web.com",
+    "location": "Cairo, Egypt",
+    "githubusername": "john doe",
+    "twitter": "www.twitter.com/johnDoe",
+    "facebook": "www.facebook.com/johnDoe",
+    "youtube":"www.youtube.com/johnDoe",
+    "linkedin": "www.linkedin.com/johnDoe",
+    "instagram": "www.instagram.com/johnDoe",
+    "skills": "html5, css3, javascript, react, redux, typescript",
+    "status": "junior fullstack",
+    "bio": "Hi, I am a full stack web developer"
+}
+###
+GET http://localhost:5000/api/profile/me
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMWRmZTQyOTU0YWUxNzYwNGMxZDk2In0sImlhdCI6MTU5MTg2NjMwMywiZXhwIjoxNTkyNDcxMTAzfQ.3mQeTjdbhp97P09wDAoTEgKOlIsCbVVVhjOi2g9Nu5k
+
+###
+GET http://localhost:5000/api/profile
+
+###
+GET http://localhost:5000/api/profile/user/5ee1dfe42954ae17604c1d96
+
+###
+DELETE http://localhost:5000/api/profile/delete
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMWRmZTQyOTU0YWUxNzYwNGMxZDk2In0sImlhdCI6MTU5MTg2NjMwMywiZXhwIjoxNTkyNDcxMTAzfQ.3mQeTjdbhp97P09wDAoTEgKOlIsCbVVVhjOi2g9Nu5k
+
+

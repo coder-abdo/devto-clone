@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { createUser } from "../controllers/userController";
+import { signup, login } from "../controllers/userController";
 
 const router = Router();
 
 router.post(
-  "/api/users",
+  "/api/users/signup",
   [
     check("name", "Name is Required").not().isEmpty(),
     check("email", "please enter a valid email").isEmail(),
@@ -13,7 +13,14 @@ router.post(
       min: 6,
     }),
   ],
-  createUser
+  signup
 );
-
+router.post(
+  "/api/users/login",
+  [
+    check("email", "please enter a valid email").isEmail(),
+    check("password", "password is required").exists(),
+  ],
+  login
+);
 export default router;

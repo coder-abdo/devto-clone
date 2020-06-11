@@ -5,6 +5,9 @@ import morgan from "morgan";
 import { config } from "dotenv";
 import { connectDB } from "./config/dbConfig";
 import usersRouter from "./routes/userRoutes";
+import authRouter from "./routes/authRoutes";
+import profileRouter from "./routes/profileRoutes";
+import { statusErrHandler, errorHandler } from "./controllers/errController";
 // initialize dotenv
 config();
 // initilaize the server
@@ -23,5 +26,11 @@ app.get("/", (req, res) => {
   res.send("hello world");
 });
 app.use(usersRouter);
+app.use(authRouter);
+app.use(profileRouter);
+// error 404 handler
+app.use(statusErrHandler);
+app.use(errorHandler);
+
 // run the server
 app.listen(port, () => console.log(`server run at port: ${port}`));
