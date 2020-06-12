@@ -18,12 +18,12 @@ Content-Type: application/json
 ### auth
 ###
 GET http://localhost:5000/api/auth
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMWRmZTQyOTU0YWUxNzYwNGMxZDk2In0sImlhdCI6MTU5MTg2Mjk0NCwiZXhwIjoxNTkyNDY3NzQ0fQ.U84Jno4e5FGGvS14GiFo_R-4zg1NyYWGK0PMvZCpGSA
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMjNkNjU4YmM5MTIzYmJjZTM1ZWY1In0sImlhdCI6MTU5MTg4NTE1NywiZXhwIjoxNTkyNDg5OTU3fQ.gzThB1cC-nuHAL5QWHEY7-Wxv_OS8mN-q3yTbxuoBZg
 
 ### profile
 POST http://localhost:5000/api/profile/create
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMWRmZTQyOTU0YWUxNzYwNGMxZDk2In0sImlhdCI6MTU5MTg2Mjk0NCwiZXhwIjoxNTkyNDY3NzQ0fQ.U84Jno4e5FGGvS14GiFo_R-4zg1NyYWGK0PMvZCpGSA
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMjNkNjU4YmM5MTIzYmJjZTM1ZWY1In0sImlhdCI6MTU5MTg4NTE1NywiZXhwIjoxNTkyNDg5OTU3fQ.gzThB1cC-nuHAL5QWHEY7-Wxv_OS8mN-q3yTbxuoBZg
 
 {
     "company": "john_doe.inc",
@@ -41,16 +41,31 @@ x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMWRmZ
 }
 ###
 GET http://localhost:5000/api/profile/me
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMWRmZTQyOTU0YWUxNzYwNGMxZDk2In0sImlhdCI6MTU5MTg2NjMwMywiZXhwIjoxNTkyNDcxMTAzfQ.3mQeTjdbhp97P09wDAoTEgKOlIsCbVVVhjOi2g9Nu5k
-
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMjNkNjU4YmM5MTIzYmJjZTM1ZWY1In0sImlhdCI6MTU5MTg4NTE1NywiZXhwIjoxNTkyNDg5OTU3fQ.gzThB1cC-nuHAL5QWHEY7-Wxv_OS8mN-q3yTbxuoBZg
 ###
 GET http://localhost:5000/api/profile
 
 ###
-GET http://localhost:5000/api/profile/user/5ee1dfe42954ae17604c1d96
+GET http://localhost:5000/api/profile/user/5ee23d658bc9123bbce35ef5
+
 
 ###
 DELETE http://localhost:5000/api/profile/delete
 x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMWRmZTQyOTU0YWUxNzYwNGMxZDk2In0sImlhdCI6MTU5MTg2NjMwMywiZXhwIjoxNTkyNDcxMTAzfQ.3mQeTjdbhp97P09wDAoTEgKOlIsCbVVVhjOi2g9Nu5k
+
+###
+PUT http://localhost:5000/api/profile/experience
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMjNkNjU4YmM5MTIzYmJjZTM1ZWY1In0sImlhdCI6MTU5MTg4NTE1NywiZXhwIjoxNTkyNDg5OTU3fQ.gzThB1cC-nuHAL5QWHEY7-Wxv_OS8mN-q3yTbxuoBZg
+
+{
+    "title": "junior front end developer",
+    "company": "sceel.io",
+    "location": "Cairo, Egypt",
+    "from": "02-01-2020",
+    "current": true,
+    "description": "React developer handles and converts mocks into a fully function apps"
+}
+
 
 

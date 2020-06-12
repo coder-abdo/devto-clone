@@ -6,6 +6,7 @@ import {
   getAllProfiles,
   getProfileByUserId,
   deleteProfile,
+  addExperience,
 } from "../controllers/profileController";
 import auth from "../middlewares/auth";
 
@@ -24,4 +25,15 @@ router.post(
   createProfile
 );
 router.delete("/api/profile/delete", auth, deleteProfile);
+router.put(
+  "/api/profile/experience",
+  auth,
+  [
+    check("title", "title is required").not().isEmpty(),
+    check("company", "company is required").not().isEmpty(),
+    check("from", "from is required").not().isEmpty(),
+    check("current", "current is required").not().isEmpty(),
+  ],
+  addExperience
+);
 export default router;
