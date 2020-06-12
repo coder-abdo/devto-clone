@@ -66,7 +66,6 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
-.rest
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
@@ -123,3 +122,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+!* .rest
