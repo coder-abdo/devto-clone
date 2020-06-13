@@ -130,4 +130,4 @@ dist
 # Logs
 npm-debug.log*
 
-client.rest
+/client.rest
