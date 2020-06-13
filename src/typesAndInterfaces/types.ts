@@ -40,7 +40,15 @@ export interface IUser extends Document {
 export type TLike = {
   user: string;
 };
+export type TComment = {
+  id?: string;
+  text: string;
+  name: string;
+  avatar: string;
+  user: string;
+};
 export interface IPost extends Document {
   user: string;
   likes: TLike[];
+  comments: TComment[];
 }

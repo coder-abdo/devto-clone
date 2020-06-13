@@ -1,6 +1,12 @@
 import { RequestHandler, Response } from "express";
 import { validationResult } from "express-validator";
-import { Ireq, IUser, IPost, TLike } from "../typesAndInterfaces/types";
+import {
+  Ireq,
+  IUser,
+  IPost,
+  TLike,
+  TComment,
+} from "../typesAndInterfaces/types";
 import Post from "../models/Post";
 import User from "../models/User";
 import Profile from "../models/Profile";
@@ -137,6 +143,69 @@ const removeLikes: RequestHandler = async (
     next(error);
   }
 };
+// add comment
+const addComment: RequestHandler = async (
+  req: Ireq | any,
+  res: Response,
+  next: (p: any) => void
+) => {
+  const { post_id } = req.params;
+  const { text } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(401).json({ error: errors.array() });
+  }
+  try {
+    const user = (await User.findById(req.user.id)) as IUser;
+    const post = (await Post.findById(post_id)) as IPost;
+    const comment = {
+      text,
+      user: req.user.id,
+      avatar: user.avatar,
+      name: user.name,
+    } as TComment;
+    post.comments.unshift(comment);
+    await post.save();
+    res.json(post.comments);
+  } catch (error) {
+    error.message = "invalid post id";
+    next(error);
+  }
+};
+// delete comment
+const deleteComment: RequestHandler = async (
+  req: Ireq | any,
+  res: Response,
+  next: (p: any) => void
+) => {
+  const { post_id } = req.params;
+  const { comment_id } = req.params;
+  try {
+    const post = (await Post.findById(post_id)) as IPost;
+    const comment = post.comments.find(
+      (comment: TComment) => comment.id === comment_id
+    );
+
+    if (!comment) {
+      return res.status(401).json({ error: "no comment matches your request" });
+    }
+    // console.log(deletedComment === undefined);
+    if (comment?.user.toString() !== req.user.id) {
+      return res
+        .status(401)
+        .json({ error: "not allowed to delete this comment" });
+    }
+    const filtredComments = post.comments.filter(
+      (comment: TComment) => comment.id !== comment_id
+    );
+    post.comments = filtredComments;
+    await post.save();
+    res.json(post.comments);
+  } catch (error) {
+    error.message = "there is no post match your request";
+    next(error);
+  }
+};
 export {
   createPost,
   getAllPosts,
@@ -144,4 +213,6 @@ export {
   deletePost,
   addLikes,
   removeLikes,
+  addComment,
+  deleteComment,
 };
