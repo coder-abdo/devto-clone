@@ -1,6 +1,6 @@
 import { RequestHandler, Response } from "express";
 import { validationResult } from "express-validator";
-import { Ireq, IUser, IPost } from "../typesAndInterfaces/types";
+import { Ireq, IUser, IPost, TLike } from "../typesAndInterfaces/types";
 import Post from "../models/Post";
 import User from "../models/User";
 import Profile from "../models/Profile";
@@ -65,6 +65,7 @@ const getPostById: RequestHandler = async (
     }
     res.json(post);
   } catch (error) {
+    error.message = "no user";
     next(error);
   }
 };
@@ -83,7 +84,64 @@ const deletePost: RequestHandler = async (
     await post?.remove();
     res.json({ message: "Post Removed" });
   } catch (error) {
+    error.message = "invalid post id";
     next(error);
   }
 };
-export { createPost, getAllPosts, getPostById, deletePost };
+// add likes
+const addLikes: RequestHandler = async (
+  req: Ireq | any,
+  res: Response,
+  next: (p: any) => void
+) => {
+  const { post_id } = req.params;
+  try {
+    const post = (await Post.findById(post_id)) as IPost;
+    const filteredLikes = post.likes.filter(
+      (like: TLike) => like.user.toString() === req.user.id
+    );
+    if (filteredLikes.length > 0) {
+      return res.status(401).json({ error: "post already liked" });
+    }
+    post.likes.unshift({ user: req.user.id });
+    await post.save();
+    res.json(post.likes);
+  } catch (error) {
+    error.message = "invalid post id";
+    next(error);
+  }
+};
+// remove likes or unlike
+const removeLikes: RequestHandler = async (
+  req: Ireq | any,
+  res: Response,
+  next: (p: any) => void
+) => {
+  const { post_id } = req.params;
+  try {
+    const post = (await Post.findById(post_id)) as IPost;
+    const filteredLikes = post.likes.filter(
+      (like: TLike) => like.user.toString() === req.user.id
+    );
+    if (filteredLikes.length === 0) {
+      return res.status(401).json({ error: "post not liked yet" });
+    }
+    let unlikes = post.likes.filter(
+      (like: TLike) => like.user.toString() !== req.user.id
+    );
+    post.likes = unlikes;
+    await post.save();
+    res.json(post.likes);
+  } catch (error) {
+    error.message = "invalid post id";
+    next(error);
+  }
+};
+export {
+  createPost,
+  getAllPosts,
+  getPostById,
+  deletePost,
+  addLikes,
+  removeLikes,
+};

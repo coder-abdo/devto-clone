@@ -6,6 +6,8 @@ import {
   getAllPosts,
   getPostById,
   deletePost,
+  addLikes,
+  removeLikes,
 } from "../controllers/postsController";
 
 const router = Router();
@@ -19,4 +21,6 @@ router.post(
 router.get("/api/posts", auth, getAllPosts);
 router.get("/api/posts/:post_id", auth, getPostById);
 router.delete("/api/posts/:post_id", auth, deletePost);
+router.put("/api/post/like/:post_id", auth, addLikes);
+router.put("/api/post/unlike/:post_id", auth, removeLikes);
 export default router;

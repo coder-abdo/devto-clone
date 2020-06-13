@@ -37,6 +37,10 @@ export interface IUser extends Document {
   name: string;
   avatar: string;
 }
+export type TLike = {
+  user: string;
+};
 export interface IPost extends Document {
   user: string;
+  likes: TLike[];
 }
