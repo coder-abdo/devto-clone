@@ -7,6 +7,7 @@ import { connectDB } from "./config/dbConfig";
 import usersRouter from "./routes/userRoutes";
 import authRouter from "./routes/authRoutes";
 import profileRouter from "./routes/profileRoutes";
+import postRouter from "./routes/postsRoutes";
 import { statusErrHandler, errorHandler } from "./controllers/errController";
 // initialize dotenv
 config();
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 app.use(usersRouter);
 app.use(authRouter);
 app.use(profileRouter);
+app.use(postRouter);
 // error 404 handler
 app.use(statusErrHandler);
 app.use(errorHandler);

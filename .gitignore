@@ -122,4 +122,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-*.rest
+out
+node_modules
+dist
+*.vsix
+
+# Logs
+npm-debug.log*

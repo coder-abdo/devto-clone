@@ -45,7 +45,7 @@ const profileSchema = new Schema({
       description: String,
     },
   ],
-  eduaction: [
+  education: [
     {
       school: {
         type: String,
@@ -61,6 +61,10 @@ const profileSchema = new Schema({
       },
       from: {
         type: Date,
+        required: true,
+      },
+      current: {
+        type: Boolean,
         required: true,
       },
       to: Date,

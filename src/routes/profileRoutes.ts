@@ -7,6 +7,9 @@ import {
   getProfileByUserId,
   deleteProfile,
   addExperience,
+  deleteExperience,
+  addEducation,
+  deleteEducation,
 } from "../controllers/profileController";
 import auth from "../middlewares/auth";
 
@@ -36,4 +39,20 @@ router.put(
   ],
   addExperience
 );
+// delete expierience
+router.delete("/api/profile/experience/:exp_id", auth, deleteExperience);
+// add education
+router.put(
+  "/api/profile/education",
+  auth,
+  [
+    check("school", "school is required").not().isEmpty(),
+    check("degree", "degree is required").not().isEmpty(),
+    check("fieldofstudy", "fieldofstudy is required").not().isEmpty(),
+    check("from", "from is required").not().isEmpty(),
+  ],
+  addEducation
+);
+// delete education
+router.delete("/api/profile/education/:edu_id", auth, deleteEducation);
 export default router;

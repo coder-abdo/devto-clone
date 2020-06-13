@@ -60,13 +60,46 @@ x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMjNkN
 
 {
     "title": "junior front end developer",
-    "company": "sceel.io",
+    "company": "worcbox.inc",
     "location": "Cairo, Egypt",
-    "from": "02-01-2020",
+    "from": "06-01-2020",
     "current": true,
-    "description": "React developer handles and converts mocks into a fully function apps"
+    "description": "javascript developer handles and converts mocks into a fully function apps"
 }
 
 ###
+PUT http://localhost:5000/api/profile/education
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMjNkNjU4YmM5MTIzYmJjZTM1ZWY1In0sImlhdCI6MTU5MTg4NTE1NywiZXhwIjoxNTkyNDg5OTU3fQ.gzThB1cC-nuHAL5QWHEY7-Wxv_OS8mN-q3yTbxuoBZg
+
+{
+    "school": "MIT",
+    "degree": "Good",
+    "fieldofstudy": "C.S",
+    "from": "01-07-2015",
+    "current": false,
+    "to": "01-07-2019"
+}
+
+###
+POST http://localhost:5000/api/post/create
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMjNkNjU4YmM5MTIzYmJjZTM1ZWY1In0sImlhdCI6MTU5MTg4NTE1NywiZXhwIjoxNTkyNDg5OTU3fQ.gzThB1cC-nuHAL5QWHEY7-Wxv_OS8mN-q3yTbxuoBZg
+
+{
+    "text": "this is post no 1"
+}
+
+###
+GET http://localhost:5000/api/posts
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMjNkNjU4YmM5MTIzYmJjZTM1ZWY1In0sImlhdCI6MTU5MTg4NTE1NywiZXhwIjoxNTkyNDg5OTU3fQ.gzThB1cC-nuHAL5QWHEY7-Wxv_OS8mN-q3yTbxuoBZg
+
+###
+GET http://localhost:5000/api/posts/5ee3bf8f07d9c849d4606d30
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMjNkNjU4YmM5MTIzYmJjZTM1ZWY1In0sImlhdCI6MTU5MTg4NTE1NywiZXhwIjoxNTkyNDg5OTU3fQ.gzThB1cC-nuHAL5QWHEY7-Wxv_OS8mN-q3yTbxuoBZg
+
+###
+DELETE  http://localhost:5000/api/posts/5ee3bfaa7b315d47981d7d4f
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVlMjNkNjU4YmM5MTIzYmJjZTM1ZWY1In0sImlhdCI6MTU5MTg4NTE1NywiZXhwIjoxNTkyNDg5OTU3fQ.gzThB1cC-nuHAL5QWHEY7-Wxv_OS8mN-q3yTbxuoBZg
 
 

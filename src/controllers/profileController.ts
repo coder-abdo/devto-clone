@@ -2,7 +2,7 @@ import { RequestHandler, Request, Response } from "express";
 import { validationResult } from "express-validator";
 import Profile from "../models/Profile";
 import User from "../models/User";
-import { Ireq, IProfile } from "../typesAndInterfaces/types";
+import { Ireq, IProfile, TExp, TEdu } from "../typesAndInterfaces/types";
 
 const getProfile: RequestHandler = async (
   req: Ireq | any,
@@ -179,9 +179,82 @@ const addExperience: RequestHandler = async (
   const { title, company, location, current, from, to, description } = req.body;
   try {
     const newExp = { title, company, location, current, from, to, description };
+
     const profile = (await Profile.findOne({ user: req.user.id })) as IProfile;
     profile.experience.unshift(newExp);
     await profile?.save();
+    res.json(profile);
+  } catch (error) {
+    next(error);
+  }
+};
+const deleteExperience: RequestHandler = async (
+  req: Ireq | any,
+  res: Response,
+  next: any
+) => {
+  try {
+    const { exp_id } = req.params;
+    const profile = (await Profile.findOne({
+      user: req.user.user_id,
+    })) as IProfile;
+    let filteredExp = profile.experience.filter(
+      (exp) => exp.id !== exp_id
+    ) as TExp;
+    profile.experience = filteredExp;
+    await profile.save();
+    res.json(profile);
+  } catch (error) {
+    next(error);
+  }
+};
+// add education
+const addEducation: RequestHandler = async (
+  req: Ireq | any,
+  res: Response,
+  next: any
+) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(401).json({ error: errors.array() });
+  }
+  const { school, degree, fieldofstudy, from, to, date, current } = req.body;
+  try {
+    const newEduc = {
+      school,
+      degree,
+      fieldofstudy,
+      from,
+      to,
+      current,
+      date,
+    };
+
+    const profile = (await Profile.findOne({ user: req.user.id })) as IProfile;
+    console.log(profile);
+    profile.education.unshift(newEduc);
+    await profile?.save();
+    res.json(profile);
+  } catch (error) {
+    next(error);
+  }
+};
+// delete education
+const deleteEducation: RequestHandler = async (
+  req: Ireq | any,
+  res: Response,
+  next: any
+) => {
+  try {
+    const { edu_id } = req.params;
+    const profile = (await Profile.findOne({
+      user: req.user.user_id,
+    })) as IProfile;
+    let filteredEdu = profile.education.filter(
+      (edu) => edu.id !== edu_id
+    ) as TEdu;
+    profile.education = filteredEdu;
+    await profile.save();
     res.json(profile);
   } catch (error) {
     next(error);
@@ -193,5 +266,8 @@ export {
   getAllProfiles,
   getProfileByUserId,
   deleteProfile,
+  deleteExperience,
   addExperience,
+  addEducation,
+  deleteEducation,
 };
