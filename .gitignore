@@ -124,7 +124,7 @@ $RECYCLE.BIN/
 *.lnk
 out
 node_modules
-dist
+build
 *.vsix
 
 # Logs

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --transpileOnly --no-notify src"
+    "dev": "ts-node-dev --transpileOnly --no-notify src",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
